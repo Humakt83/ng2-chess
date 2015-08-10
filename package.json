@@ -26,6 +26,7 @@
     "browserify": "^11.0.1",
     "gulp": "^3.9.0",
     "gulp-sourcemaps": "^1.5.2",
+    "gulp-uglify": "^1.2.0",
     "gulp-util": "^3.0.6",
     "lodash.assign": "^3.2.0",
     "vinyl-buffer": "^1.0.0",
@@ -33,7 +34,9 @@
     "watchify": "^3.3.1"
   },
   "dependencies": {
-    "angularjs": "0.0.1",
-    "lodash": "^3.10.1"
+    "angular": "^1.4.3",
+    "angular-route": "^1.4.3",
+    "lodash": "^3.10.1",
+    "underscore": "^1.8.3"
   }
 }

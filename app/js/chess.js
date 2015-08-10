@@ -1,6 +1,8 @@
 'use strict'
 
-angular.module('Tribetron').factory('Chess', ['ChessPiece', 'PositionService', function(ChessPiece, PositionService) {
+angular.module('ng-chess').factory('Chess', ['ChessPiece', 'PositionService', function(ChessPiece, PositionService) {
+	
+	var _ = require('underscore')
 	
 	const xMin = 0, yMin = 0, xMax = 7, yMax = 7
 	

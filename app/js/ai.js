@@ -1,7 +1,9 @@
 'use strict'
 
-angular.module('Tribetron').factory('ChessAI', [function() {
-		
+angular.module('ng-chess').factory('ChessAI', [function() {
+	
+	var _ = require('underscore')
+	
 	var evaluateBoard = function(chess, board) {
 		return chess.evaluateBoard(board)
 	}
@@ -19,11 +21,11 @@ angular.module('Tribetron').factory('ChessAI', [function() {
 			if (this.black) {
 				return _.chain(moves).sortBy(function(move) {
 					return calculateScoreOfTheMove(chess, move)
-				}).first(this.evalueNBestMoves).compact().value()
+				}).first(this.evalueNBestMoves).value()
 			} else {				
 				return _.chain(moves).sortBy(function(move) {
 					return calculateScoreOfTheMove(chess, move)
-				}).last(this.evalueNBestMoves).compact().value()
+				}).last(this.evalueNBestMoves).value()
 			}
 		}
 		
@@ -33,7 +35,7 @@ angular.module('Tribetron').factory('ChessAI', [function() {
 			if (this.depth > 1) {
 				var aiOpponent = new AI(!this.black, this.depth - 1, this.evalueNBestMoves)
 				aiOpponent.notOriginal = true
-				_.chain(topMoves).each(function(move) {
+				_.each(topMoves, function(move) {
 					chess.makeMove(move)
 					move.calculatedScore = aiOpponent.pickBestMove(chess).calculatedScore
 					chess.undoMove()
@@ -49,7 +51,6 @@ angular.module('Tribetron').factory('ChessAI', [function() {
 			if (!move) return
 			chess.aiTurn = false
 			chess.makeMove(move)
-						
 		}
 		this.black = black
 		this.depth = depth

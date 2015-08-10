@@ -1,6 +1,6 @@
 'use strict'
 
-angular.module('Tribetron').factory('PositionService', [function() {
+angular.module('ng-chess').factory('PositionService', [function() {
 
 	function Position(x, y) {
 		this.newPosition = function(xModifier, yModifier) {

@@ -1,8 +1,10 @@
 'use strict'
 
-angular.module('Tribetron').factory('ChessPiece', ['PositionService', function(PositionService) {
+angular.module('ng-chess').factory('ChessPiece', ['PositionService', function(PositionService) {
 	
-	const cssNames = ['totter', 'hunter', 'medic', 'psycho', 'lazor', 'hacker']
+	var _ = require('underscore')
+	
+	const cssNames = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king']
 	
 	const valuesForPiece = [50, 95, 95, 125, 240, 5000]
 	
@@ -206,15 +208,12 @@ angular.module('Tribetron').factory('ChessPiece', ['PositionService', function(P
 		createKing : function(whitePiece) {
 			return whitePiece ? 6 : -6
 		},
-		getTypesPawnCanTurnInto : function(whitePiece) {
-			return _.chain([2, 3, 4, 5]).map(function(piece) { return whitePiece? piece : (-1 * piece) }).value()
-		},
 		getMoves : function(piece, position, chess) {
 			var whitePiece = piece > 0
 			return filterIllegalMoves(movesForPiece[Math.abs(piece) - 1](position, piece, chess, whitePiece), whitePiece, chess)
 		},
 		getCssName : function(piece) {
-			var blackPiece = piece < 0 ? '_enemy' : ''
+			var blackPiece = piece < 0 ? '_black' : ''
 			return cssNames[Math.abs(piece) - 1] + blackPiece
 		},
 		getValueForPiece : function(piece, x, y) {

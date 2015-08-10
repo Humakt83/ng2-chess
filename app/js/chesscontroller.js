@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('Tribetron').controller('ChessController', ['$scope', '$location', 'Player', 'Chess', 'ChessAI', 'ChessPiece', 'PositionService', 'Campaign',
-		function($scope, $location, Player, Chess, ChessAI, ChessPiece, PositionService, Campaign) {
+angular.module('ng-chess').controller('ChessController', ['$scope', 'Chess', 'ChessAI', 'ChessPiece', 'PositionService',
+		function($scope, Chess, ChessAI, ChessPiece, PositionService) {
 	
 	$scope.selectPiece = function(x, y) {
 		if (!$scope.gameOver) {
@@ -16,22 +16,6 @@ angular.module('Tribetron').controller('ChessController', ['$scope', '$location'
 			}
 		}
 	}
-	
-	if (!Player.getPlayer()) {
-		$location.path('/')
-		return
-	}
-	
-	Campaign.getScenario(Campaign.getCampaign().currentScenario).success(function(result) {
-		$scope.reward = result.reward
-		$scope.aiOnBlack = result.aiOnBlack
-		$scope.chessBoard = Chess.createBoard()
-		$scope.ai = ChessAI.createAI($scope.aiOnBlack)
-		$scope.checkState()
-		if (!$scope.aiOnBlack) {
-			$scope.aiTurn()
-		}
-	})
 	
 	$scope.piece = ChessPiece
 	
@@ -64,13 +48,13 @@ angular.module('Tribetron').controller('ChessController', ['$scope', '$location'
 		}	
 	}
 	
-	$scope.skip = function() {
-		$location.path('/game')
-	}
+	$scope.aiOnBlack = true
+	$scope.chessBoard = Chess.createBoard()
+	$scope.ai = ChessAI.createAI($scope.aiOnBlack)
+	$scope.checkState()
 	
-	$scope.continueGame = function() {
-		Player.getPlayer().money += $scope.reward
-		$location.path('/game')
+	if (!$scope.aiOnBlack) {
+		$scope.aiTurn()
 	}
 	
 }])
