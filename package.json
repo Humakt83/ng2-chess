@@ -1,0 +1,39 @@
+{
+  "name": "ng-chess",
+  "version": "1.0.0",
+  "description": "Angular chess",
+  "main": "gulpfile.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Humakt83/ng-chess.git"
+  },
+  "keywords": [
+    "AngularJS",
+    "chess",
+    "AI"
+  ],
+  "author": "Risto <<Humakt83>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Humakt83/ng-chess/issues"
+  },
+  "homepage": "https://github.com/Humakt83/ng-chess#readme",
+  "devDependencies": {
+    "browser-sync": "^2.8.2",
+    "browserify": "^11.0.1",
+    "gulp": "^3.9.0",
+    "gulp-sourcemaps": "^1.5.2",
+    "gulp-util": "^3.0.6",
+    "lodash.assign": "^3.2.0",
+    "vinyl-buffer": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.3.1"
+  },
+  "dependencies": {
+    "angularjs": "0.0.1",
+    "lodash": "^3.10.1"
+  }
+}
