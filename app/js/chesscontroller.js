@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('ng-chess').controller('ChessController', ['$scope', 'Chess', 'ChessAI', 'ChessPiece', 'PositionService',
-		function($scope, Chess, ChessAI, ChessPiece, PositionService) {
+angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', 'Chess', 'ChessAI', 'ChessPiece', 'PositionService',
+		function($scope, $timeout, Chess, ChessAI, ChessPiece, PositionService) {
 	
 	$scope.selectPiece = function(x, y) {
 		if (!$scope.gameOver) {
@@ -24,8 +24,16 @@ angular.module('ng-chess').controller('ChessController', ['$scope', 'Chess', 'Ch
 	$scope.win = false
 	
 	$scope.aiTurn = function() {
-		$scope.ai.playTurn($scope.chessBoard)
-		$scope.checkState()
+		$timeout(function() {
+			if ($scope.chessBoard.turnOfWhite) $scope.aiWhite.playTurn($scope.chessBoard)
+			else $scope.aiBlack.playTurn($scope.chessBoard)
+			$scope.checkState()
+			return !$scope.gameOver && (($scope.chessBoard.turnOfWhite && $scope.aiWhite) || (!$scope.chessBoard.turnOfWhite && $scope.aiBlack))
+		}, 100).then(function(continueGame) {
+			if (continueGame) {
+				$scope.aiTurn()
+			}
+		})
 	}
 	
 	$scope.checkState = function() {
@@ -40,20 +48,20 @@ angular.module('ng-chess').controller('ChessController', ['$scope', 'Chess', 'Ch
 	var gameOver = function() {
 		if ($scope.chessBoard.isStaleMate()) {
 			$scope.chessOverText = 'Stalemate'
-		} else if ($scope.aiOnBlack === !$scope.chessBoard.turnOfWhite) {
-			$scope.win = true
-			$scope.chessOverText = 'Checkmate. ' + Player.getPlayer().name + ' is winner.'
 		} else {
-			$scope.chessOverText = 'Checkmate. Computer is winner.'
-		}	
+			$scope.chessOverText = 'Checkmate.'
+		}
 	}
 	
 	$scope.aiOnBlack = true
+	$scope.aiOnWhite = true
 	$scope.chessBoard = Chess.createBoard()
-	$scope.ai = ChessAI.createAI($scope.aiOnBlack)
+	if ($scope.aiOnBlack) $scope.aiBlack = ChessAI.createAI(true, ChessAI.createDifficulty(4,20))
+	if ($scope.aiOnWhite) $scope.aiWhite = ChessAI.createAI(false, ChessAI.createDifficulty(3,40))
+		
 	$scope.checkState()
 	
-	if (!$scope.aiOnBlack) {
+	if ($scope.aiWhite) {
 		$scope.aiTurn()
 	}
 	

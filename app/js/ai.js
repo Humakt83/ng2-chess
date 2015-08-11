@@ -37,7 +37,11 @@ angular.module('ng-chess').factory('ChessAI', [function() {
 				aiOpponent.notOriginal = true
 				_.each(topMoves, function(move) {
 					chess.makeMove(move)
-					move.calculatedScore = aiOpponent.pickBestMove(chess).calculatedScore
+					if (chess.allowedMoves.length < 1) {
+						move.calculatedScore = aiOpponent.black ? 99999 : -99999
+					} else {
+						move.calculatedScore = aiOpponent.pickBestMove(chess).calculatedScore
+					}
 					chess.undoMove()
 				})
 			}
@@ -58,8 +62,13 @@ angular.module('ng-chess').factory('ChessAI', [function() {
 	}
 	
 	return {
-		createAI : function(black) {
-			return new AI(black, 3, 20)
+		createAI : function(black, difficulty) {
+			return new AI(black, difficulty.depth, difficulty.width)
+		},
+		createDifficulty : function(d, w) {
+			d = d || 3
+			w = w || 20
+			return {depth : d, width: w}
 		}
 	}
 }])
