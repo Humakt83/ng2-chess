@@ -4,7 +4,7 @@ angular.module('ng-chess').factory('Settings', function() {
 		
 	var createDifficulty = function(d, w) {
 		d = d || 3
-		w = w || 20
+		w = w || 30
 		return {depth : d, width: w}
 	}
 	
