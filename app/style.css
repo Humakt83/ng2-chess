@@ -80,3 +80,14 @@ img {
 	max-width: 95%;
 	text-align: center;
 }
+
+.ai-settings {
+	padding: 10px;
+	text-align: right;
+}
+
+.ai-settings label {
+	display: inline-block;
+	width: 140px;
+	text-align: right;
+}
