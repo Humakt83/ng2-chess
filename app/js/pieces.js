@@ -217,13 +217,18 @@ angular.module('ng-chess').factory('ChessPiece', ['PositionService', function(Po
 			return cssNames[Math.abs(piece) - 1] + blackPiece
 		},
 		getValueForPiece : function(piece, x, y) {
-			function getValueOfCoord(coord) {
+			function getValueOfCoordX(coord) {
 				if (coord === 3 || coord === 4) return 6
 				if (coord === 2 || coord === 5) return 3
 				if (coord === 1 || coord === 6) return 1
 				return 0
 			}
-			return valuesForPiece[Math.abs(piece) - 1] + getValueOfCoord(x) + getValueOfCoord(y)
+			function getValueOfCoordY(coord) {
+				if ( piece === -1 ) return coord
+				if ( piece === 1) return 7 - coord
+				return getValueOfCoordX(coord)
+			}
+			return valuesForPiece[Math.abs(piece) - 1] + getValueOfCoordX(x) + getValueOfCoordY(y)
 		}
 				
 	}
