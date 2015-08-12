@@ -64,11 +64,6 @@ angular.module('ng-chess').factory('ChessAI', [function() {
 	return {
 		createAI : function(black, difficulty) {
 			return new AI(black, difficulty.depth, difficulty.width)
-		},
-		createDifficulty : function(d, w) {
-			d = d || 3
-			w = w || 20
-			return {depth : d, width: w}
 		}
 	}
 }])

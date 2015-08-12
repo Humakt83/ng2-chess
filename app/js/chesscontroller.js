@@ -1,7 +1,7 @@
 'use strict'
 
-angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', 'Chess', 'ChessAI', 'ChessPiece', 'PositionService',
-		function($scope, $timeout, Chess, ChessAI, ChessPiece, PositionService) {
+angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', 'Chess', 'ChessAI', 'ChessPiece', 'PositionService', 'Settings',
+		function($scope, $timeout, Chess, ChessAI, ChessPiece, PositionService, Settings) {
 	
 	$scope.selectPiece = function(x, y) {
 		if (!$scope.gameOver) {
@@ -10,7 +10,7 @@ angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', 
 			} else if ($scope.chessBoard.isMovable(x, y)) {
 				$scope.chessBoard.movePiece($scope.chessBoard.selected, PositionService.createPosition(x, y))
 				$scope.checkState()
-				if (!$scope.gameOver) {
+				if (!$scope.gameOver && ($scope.aiBlack || $scope.aiWhite)) {
 					$scope.aiTurn()
 				}
 			}
@@ -53,11 +53,11 @@ angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', 
 		}
 	}
 	
-	$scope.aiOnBlack = true
-	$scope.aiOnWhite = true
+	$scope.aiOnBlack = Settings.isBlackComputer()
+	$scope.aiOnWhite = Settings.isWhiteComputer()
 	$scope.chessBoard = Chess.createBoard()
-	if ($scope.aiOnBlack) $scope.aiBlack = ChessAI.createAI(true, ChessAI.createDifficulty(4,20))
-	if ($scope.aiOnWhite) $scope.aiWhite = ChessAI.createAI(false, ChessAI.createDifficulty(3,40))
+	if ($scope.aiOnBlack) $scope.aiBlack = ChessAI.createAI(true, Settings.getDifficultyBlack())
+	if ($scope.aiOnWhite) $scope.aiWhite = ChessAI.createAI(false, Settings.getDifficultyWhite())
 		
 	$scope.checkState()
 	

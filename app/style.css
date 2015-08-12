@@ -1,3 +1,7 @@
+body {
+    background-color: rgb(238, 186, 144);
+}
+
 .chess {
 	position: relative;
 	width: 820px;
@@ -34,4 +38,39 @@
 .piece {
 	width: 80px;
 	height: 80px;
+}
+
+.settings {
+	border-radius: 12px;
+	border-color: rgb(168, 116,74);
+	border: 5px solid;
+	float: left;
+}
+
+.left {
+	width: 35%;
+	left: 5px;
+	text-align: left;
+	padding-right: 5px;
+}
+
+.center {
+	width: 25%;
+	text-align: center;
+}
+
+.right {
+	text-align: right;
+	width: 35%;
+	right: 5px;
+	padding-left: 5px;
+}
+
+.blackPlayer {
+	-webkit-filter: brightness(0);
+}
+
+img {
+	max-width: 95%;
+	text-align: center;
 }
