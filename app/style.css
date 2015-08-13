@@ -8,11 +8,12 @@ body {
 
 .chess {
 	position: relative;
-	width: 820px;
-	height: 820px;
 	border: 5px solid;
     border-radius: 12px; 
 	border-color: rgb(168, 116,74);
+	text-align: center;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .bg-white {
@@ -37,11 +38,7 @@ body {
     background: -o-linear-gradient(right, rgb(255, 255, 0), rgb(245, 215, 0), rgb(255, 255, 0));
     background: -moz-linear-gradient(right, rgb(255, 255, 0), rgb(245, 215, 0), rgb(255, 255, 0));
     background: linear-gradient(to right, rgb(255, 255, 0), rgb(245, 215, 0), rgb(255, 255, 0));
-}
-
-.piece {
-	width: 80px;
-	height: 80px;
+	cursor: pointer;
 }
 
 .settings {
@@ -74,6 +71,15 @@ body {
 
 .blackPlayer {
 	-webkit-filter: brightness(0);
+	cursor: pointer;
+}
+
+.whitePlayer {
+	cursor: pointer;
+}
+
+.piece {
+	display: table-cell;
 }
 
 img {
@@ -90,4 +96,49 @@ img {
 	display: inline-block;
 	width: 140px;
 	text-align: right;
+}
+
+.end {
+	text-align: center;
+	position: absolute;
+	top: 15px;
+	max-width: 40%;
+	left: 50%;
+	font-size: 30px;
+	font-weight: bold;
+	color: burlywood;
+}
+
+.end-inner {
+	position: relative;
+	left: -50%;
+	background-color: white;
+	padding: 5px;
+	border-radius: 5px;
+	box-shadow: 10px 10px 5px grey;
+}
+
+.restart, .settings-image {
+	cursor: pointer;
+	width: 150px;
+}
+
+.chess-over {
+	-webkit-filter: sepia(100%);
+	-moz-filter: sepia(100%);
+	-o-filter: sepia(100%);
+	filter: sepia(100%);
+	-webkit-transition: 2s -webkit-filter linear;
+	-moz-transition: 2s -moz-filter linear;
+	-o-transition: 2s -o-filter linear;
+	transition: 2s filter linear;
+	transition: 2s -webkit-filter linear;
+}
+
+.touchable {
+	cursor: pointer;
+}
+
+.wait {
+	cursor: wait;
 }

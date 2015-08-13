@@ -1,8 +1,8 @@
 'use strict'
 
-angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', 'Chess', 'ChessAI', 'ChessPiece', 'PositionService', 'Settings',
-		function($scope, $timeout, Chess, ChessAI, ChessPiece, PositionService, Settings) {
-	
+angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', '$window', '$location', 'Chess', 'ChessAI', 'ChessPiece', 'PositionService', 'Settings',
+		function($scope, $timeout, $window, $location, Chess, ChessAI, ChessPiece, PositionService, Settings) {
+		
 	$scope.selectPiece = function(x, y) {
 		if (!$scope.gameOver) {
 			if (!$scope.chessBoard.selected || $scope.chessBoard.canSetSelected(x, y)) {
@@ -20,9 +20,7 @@ angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', 
 	$scope.piece = ChessPiece
 	
 	$scope.position = PositionService
-	
-	$scope.win = false
-	
+		
 	$scope.aiTurn = function() {
 		$timeout(function() {
 			if ($scope.chessBoard.turnOfWhite) $scope.aiWhite.playTurn($scope.chessBoard)
@@ -63,6 +61,18 @@ angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', 
 	
 	if ($scope.aiWhite) {
 		$scope.aiTurn()
+	}
+	
+	$scope.restart = function() {
+		$scope.gameOver = undefined
+		$scope.chessBoard = Chess.createBoard()
+		if ($scope.aiWhite) {
+			$scope.aiTurn()
+		}
+	}
+	
+	$scope.toSettings = function() {
+		$location.path("settings")
 	}
 	
 }])
