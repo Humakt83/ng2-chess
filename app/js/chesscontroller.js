@@ -27,7 +27,7 @@ angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', 
 			else $scope.aiBlack.playTurn($scope.chessBoard)
 			$scope.checkState()
 			return !$scope.gameOver && (($scope.chessBoard.turnOfWhite && $scope.aiWhite) || (!$scope.chessBoard.turnOfWhite && $scope.aiBlack))
-		}, 100).then(function(continueGame) {
+		}, 300).then(function(continueGame) {
 			if (continueGame) {
 				$scope.aiTurn()
 			}
