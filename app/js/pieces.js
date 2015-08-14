@@ -6,8 +6,6 @@ angular.module('ng-chess').factory('ChessPiece', ['PositionService', function(Po
 	
 	const cssNames = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king']
 	
-	const valuesForPiece = [50, 95, 95, 125, 240, 5000]
-	
 	var filterOutOfBoardMoves = function(moves, chess) {
 		return _.compact(_.filter(moves, function(move) {
 			return chess.isPositionInsideBoard(move.position ? move.position : move)
@@ -215,22 +213,7 @@ angular.module('ng-chess').factory('ChessPiece', ['PositionService', function(Po
 		getCssName : function(piece) {
 			var blackPiece = piece < 0 ? '_black' : ''
 			return cssNames[Math.abs(piece) - 1] + blackPiece
-		},
-		getValueForPiece : function(piece, x, y) {
-			function getValueOfCoordX(coord) {
-				if (coord === 3 || coord === 4) return 6
-				if (coord === 2 || coord === 5) return 3
-				if (coord === 1 || coord === 6) return 1
-				return 0
-			}
-			function getValueOfCoordY(coord) {
-				if ( piece === -1 ) return coord
-				if ( piece === 1) return 7 - coord
-				return getValueOfCoordX(coord)
-			}
-			return valuesForPiece[Math.abs(piece) - 1] + getValueOfCoordX(x) + getValueOfCoordY(y)
-		}
-				
+		}	
 	}
 	
 }])

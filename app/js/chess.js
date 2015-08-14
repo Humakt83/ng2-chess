@@ -25,20 +25,7 @@ angular.module('ng-chess').factory('Chess', ['ChessPiece', 'PositionService', fu
 				}
 			}
 			return board
-		}
-		
-		this.evaluateBoard = function(board) {
-			var score = 0
-			for (var y = yMin; y <= yMax; y++) {
-				for (var x = xMin; x <= xMax; x++) {
-					if (board[x][y] > 0)
-						score += ChessPiece.getValueForPiece(board[x][y], x, y)
-					if(board[x][y] < 0)
-						score -= ChessPiece.getValueForPiece(board[x][y], x, y)
-				}				
-			}
-			return score
-		}		
+		}	
 		
 		this.getSlot = function(position) {
 			if (!this.isPositionInsideBoard(position)) return
