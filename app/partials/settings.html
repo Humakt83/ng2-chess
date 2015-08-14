@@ -6,11 +6,17 @@
 			<img class="whitePlayer" src="computer.png" ng-show="settings.isWhiteComputer()" />
 		</div>
 		<div class="ai-settings" ng-show="settings.isWhiteComputer()">
-			<label for="depth-white">Depth</label>
+			<label for="depth-white">Thinking depth</label>
 			<input type="range" min="1" max="4" ng-model="difficultyWhite.depth" id="depth-white">
 			<br />
 			<label for="width-white">Moves to evaluate</label>
 			<input type="range" min="10" max="50" ng-model="difficultyWhite.width" id="width-white">
+			<div class="personalities" ng-model="selectedWhite">
+				<h4>Personality</h4>
+				<img class="personality" ng-repeat="personality in personalityNames" ng-src="{{personality + '.png'}}"
+					ng-click="selectedWhite = selectedWhite === personality ? undefined : personality; selectPersonality(true, selectedWhite)" 
+					ng-class="{'personality-selected': selectedWhite === personality}"/>
+			</div>
 		</div>
 	</div>
 	
@@ -24,11 +30,17 @@
 			<img class="blackPlayer" src="computer.png" ng-show="settings.isBlackComputer()" />
 		</div>
 		<div class="ai-settings" ng-show="settings.isBlackComputer()">
-			<label for="depth-black">Depth</label>
-			<input type="range" min="1" max="4" ng-model="difficultyBlack.depth" id="depth-black">
+			<label for="depth-black">Thinking depth</label>
+			<input type="range" min="1" max="4" ng-model="difficultyBlack.depth" id="depth-black">	
 			<br />
 			<label for="width-black">Moves to evaluate</label>
 			<input type="range" min="10" max="50" ng-model="difficultyBlack.width" id="width-black">
+			<div class="personalities" ng-model="selectedBlack">
+				<h4>Personality</h4>
+				<img class="personality" ng-repeat="personality in personalityNames" ng-src="{{personality + '.png'}}"
+					ng-click="selectedBlack = selectedBlack === personality ? undefined : personality; selectPersonality(false, selectedBlack)" 
+					ng-class="{'personality-selected': selectedBlack === personality}"/>
+			</div>
 		</div>
 	</div>
 	

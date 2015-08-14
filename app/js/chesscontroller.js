@@ -54,8 +54,8 @@ angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', 
 	$scope.aiOnBlack = Settings.isBlackComputer()
 	$scope.aiOnWhite = Settings.isWhiteComputer()
 	$scope.chessBoard = Chess.createBoard()
-	if ($scope.aiOnBlack) $scope.aiBlack = ChessAI.createAI(true, Settings.getDifficultyBlack())
-	if ($scope.aiOnWhite) $scope.aiWhite = ChessAI.createAI(false, Settings.getDifficultyWhite())
+	if ($scope.aiOnBlack) $scope.aiBlack = ChessAI.createAI(true, Settings.getDifficultyBlack(), Settings.getPersonalityBlack())
+	if ($scope.aiOnWhite) $scope.aiWhite = ChessAI.createAI(false, Settings.getDifficultyWhite(), Settings.getPersonalityWhite())
 		
 	$scope.checkState()
 	

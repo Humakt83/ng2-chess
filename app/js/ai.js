@@ -6,9 +6,18 @@ angular.module('ng-chess').factory('ChessAI', [function() {
 	
 	const xMin = 0, yMin = 0, xMax = 7, yMax = 7
 	
-	const valuesForPiece = [50, 95, 95, 125, 240, 5000]
+	const defaultValuesForPiece = [50, 95, 95, 125, 240, 5000]
+	const pawned = [90, 95, 95, 125, 240, 5000]
+	const horse = [40, 120, 75, 125, 240, 5000]
+	const missionary = [40, 75, 120, 125, 240, 5000]
+	const rookie = [40, 80, 80, 200, 240, 5000]
+	const widowmaker = [40, 85, 95, 125, 1000, 5000]
+	const officer = [30, 100, 100, 150, 300, 5000]
 	
-	var	getValueForPiece = function(piece, x, y) {
+	const personalities = { personality_pawned: pawned, personality_horse: horse, personality_missionary: missionary, personality_rookie: rookie, 
+		personality_widowmaker: widowmaker, personality_officer: officer}
+	
+	var	getValueForPiece = function(piece, x, y, personality) {
 		function getValueOfCoordX(coord) {
 			if (coord === 3 || coord === 4) return 6
 			if (coord === 2 || coord === 5) return 3
@@ -20,39 +29,40 @@ angular.module('ng-chess').factory('ChessAI', [function() {
 			if ( piece === 1) return 7 - coord
 			return getValueOfCoordX(coord)
 		}
-		return valuesForPiece[Math.abs(piece) - 1] + getValueOfCoordX(x) + getValueOfCoordY(y)
+		return personality[Math.abs(piece) - 1] + getValueOfCoordX(x) + getValueOfCoordY(y)
 	}
 	
-	var evaluateBoard = function(board) {
+	var evaluateBoard = function(board, personality) {
 		var score = 0
 		for (var y = yMin; y <= yMax; y++) {
 			for (var x = xMin; x <= xMax; x++) {
 				if (board[x][y] > 0)
-					score += getValueForPiece(board[x][y], x, y)
+					score += getValueForPiece(board[x][y], x, y, personality)
 				if(board[x][y] < 0)
-					score -= getValueForPiece(board[x][y], x, y)
+					score -= getValueForPiece(board[x][y], x, y, personality)
 			}				
 		}
 		return score
 	}	
 		
-	var calculateScoreOfTheMove = function(move) {
-		var score = evaluateBoard(move.boardAfterMove)
+	var calculateScoreOfTheMove = function(move, personality) {
+		var score = evaluateBoard(move.boardAfterMove, personality)
 		move.calculatedScore = score
 		return score
 	}
 		
-	function AI(black, depth, evalueNBestMoves) {
+	function AI(black, depth, evalueNBestMoves, personality) {
 		
 		this.topMoves = function(chess) {
-			var moves = chess.allowedMoves			
+			var moves = chess.allowedMoves
+			var that = this
 			if (this.black) {
 				return _.chain(moves).sortBy(function(move) {
-					return calculateScoreOfTheMove(move)
+					return calculateScoreOfTheMove(move, that.personality)
 				}).first(this.evalueNBestMoves).value()
 			} else {				
 				return _.chain(moves).sortBy(function(move) {
-					return calculateScoreOfTheMove(move)
+					return calculateScoreOfTheMove(move, that.personality)
 				}).last(this.evalueNBestMoves).value()
 			}
 		}
@@ -61,7 +71,7 @@ angular.module('ng-chess').factory('ChessAI', [function() {
 			
 			var	topMoves = this.topMoves(chess)
 			if (this.depth > 1) {
-				var aiOpponent = new AI(!this.black, this.depth - 1, this.evalueNBestMoves)
+				var aiOpponent = new AI(!this.black, this.depth - 1, this.evalueNBestMoves, this.personality)
 				aiOpponent.notOriginal = true
 				_.each(topMoves, function(move) {
 					chess.makeMove(move)
@@ -87,11 +97,15 @@ angular.module('ng-chess').factory('ChessAI', [function() {
 		this.black = black
 		this.depth = depth
 		this.evalueNBestMoves = evalueNBestMoves
+		this.personality = personality
 	}
 	
 	return {
-		createAI : function(black, difficulty) {
-			return new AI(black, difficulty.depth, difficulty.width)
+		createAI : function(black, difficulty, personality) {
+			return new AI(black, difficulty.depth, difficulty.width, personality ? personality : defaultValuesForPiece)
+		},
+		getPersonalities : function() {
+			return personalities
 		}
 	}
 }])
