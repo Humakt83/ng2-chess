@@ -9,3 +9,4 @@ Customize AI by picking a personality, thinking depth and amount of moves to eva
 
 http://ukkosnetti.fi/ngchess
 
+Tested with Google chrome.
