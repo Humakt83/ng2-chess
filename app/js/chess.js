@@ -3,6 +3,7 @@
 angular.module('ng-chess').factory('Chess', ['ChessPiece', 'PositionService', function(ChessPiece, PositionService) {
 	
 	var _ = require('underscore')
+	var lodash = require('lodash')
 	
 	const xMin = 0, yMin = 0, xMax = 7, yMax = 7
 	
@@ -153,9 +154,30 @@ angular.module('ng-chess').factory('Chess', ['ChessPiece', 'PositionService', fu
 			this.turnOfWhite = !this.turnOfWhite
 			return futureMoves.length > 0 && this.allowedMoves.length <= 0
 		}
-		
+
+		this.isInsufficientMaterial = function() {
+			function hasEnoughMaterial(pieces) {
+				return Math.abs(lodash.sum(pieces)) >= 10 || lodash.find(pieces, function(piece) { return piece === 1 || piece === -1 })
+			}
+			return !(hasEnoughMaterial(this.getWhitePieces()) || hasEnoughMaterial(this.getBlackPieces()))
+		}
+	
+		this.isThreefoldRepetition = function() {
+			if (this.madeMoves.length < 9) return false
+			return lodash.chain(this.madeMoves)
+				.takeRight(10)
+				.map(function(madeMove) { return madeMove.boardAfterMove})
+				.countBy(lodash.identity)
+				.includes(3)
+				.value()
+		}
+
+		this.isOverMoveLimit = function() {
+			return this.madeMoves.length >= 300
+		}
+	
 		this.isGameOver = function() {
-			return this.allowedMoves.length <= 0
+			return this.allowedMoves.length <= 0 || this.isInsufficientMaterial() || this.isThreefoldRepetition() || this.isOverMoveLimit()
 		}
 		
 		this.setSelected = function(x, y) {

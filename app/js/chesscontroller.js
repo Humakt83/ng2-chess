@@ -46,8 +46,16 @@ angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', 
 	var gameOver = function() {
 		if ($scope.chessBoard.isStaleMate()) {
 			$scope.chessOverText = 'Stalemate'
+		} else if ($scope.chessBoard.isCheckMate()) {
+			$scope.chessOverText = 'Checkmate'
+		} else if ($scope.chessBoard.isInsufficientMaterial()) {
+			$scope.chessOverText = 'Insufficient material'
+		} else if ($scope.chessBoard.isThreefoldRepetition()) {
+			$scope.chessOverText = 'Threefold repetition'
+		} else if ($scope.chessBoard.isOverMoveLimit()) {
+			$scope.chessOverText = 'Move limit reached'
 		} else {
-			$scope.chessOverText = 'Checkmate.'
+			$scope.chessOverText = 'Game over for unknown reason?'
 		}
 	}
 	
