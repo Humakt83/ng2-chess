@@ -2,7 +2,7 @@
 	<table class="chess" ng-class="{'chess-over': gameOver}" board>
 		<tr ng-repeat="row in chessBoard.board track by $index">
 			<td ng-repeat="slot in row track by $index" ng-click="selectPiece($index, $parent.$index)"
-				ng-class="{'selectable' : !gameOver && chessBoard.isMovable($index, $parent.$index), 'bg-white': ($parent.$index + $index) % 2 !== 0, 'bg-black': ($parent.$index + $index) % 2 === 0}">
+				ng-class="{'selectable' : !gameOver && !doNotHighlightSelected && chessBoard.isMovable($index, $parent.$index), 'bg-white': ($parent.$index + $index) % 2 !== 0, 'bg-black': ($parent.$index + $index) % 2 === 0}">
 					<img class="piece" ng-src="{{piece.getCssName(chessBoard.board[$parent.$index][$index]) + '.png'}}"/>
 			</td>
 		</tr>

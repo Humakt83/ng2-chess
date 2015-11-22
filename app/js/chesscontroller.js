@@ -22,6 +22,7 @@ angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', 
 	$scope.position = PositionService
 		
 	$scope.aiTurn = function() {
+		$scope.doNotHighlightSelected = true
 		$timeout(function() {
 			if ($scope.chessBoard.turnOfWhite) $scope.aiWhite.playTurn($scope.chessBoard)
 			else $scope.aiBlack.playTurn($scope.chessBoard)
@@ -30,6 +31,8 @@ angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', 
 		}, 300).then(function(continueGame) {
 			if (continueGame) {
 				$scope.aiTurn()
+			} else {
+				$scope.doNotHighlightSelected = false
 			}
 		})
 	}
