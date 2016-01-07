@@ -1,14 +1,14 @@
 'use strict'
 
-angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', '$window', '$location', 'Chess', 'ChessAI', 'ChessPiece', 'PositionService', 'Settings',
-		function($scope, $timeout, $window, $location, Chess, ChessAI, ChessPiece, PositionService, Settings) {
+angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', '$window', '$location', 'ChessService', 'ChessAI', 'Settings',
+		function($scope, $timeout, $window, $location, ChessService, ChessAI, Settings) {
 		
 	$scope.selectPiece = function(x, y) {
 		if (!$scope.gameOver) {
 			if (!$scope.chessBoard.selected || $scope.chessBoard.canSetSelected(x, y)) {
 				$scope.chessBoard.setSelected(x, y)
 			} else if ($scope.chessBoard.isMovable(x, y)) {
-				$scope.chessBoard.movePiece($scope.chessBoard.selected, PositionService.createPosition(x, y))
+				$scope.chessBoard.movePiece($scope.chessBoard.selected, ChessService.createPosition(x, y))
 				$scope.checkState()
 				if (!$scope.gameOver && ($scope.aiBlack || $scope.aiWhite)) {
 					$scope.aiTurn()
@@ -17,9 +17,7 @@ angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', 
 		}
 	}
 	
-	$scope.piece = ChessPiece
-	
-	$scope.position = PositionService
+	$scope.piece = ChessService.getPiece()
 		
 	$scope.aiTurn = function() {
 		$scope.doNotHighlightSelected = true
@@ -64,7 +62,7 @@ angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', 
 	
 	$scope.aiOnBlack = Settings.isBlackComputer()
 	$scope.aiOnWhite = Settings.isWhiteComputer()
-	$scope.chessBoard = Chess.createBoard()
+	$scope.chessBoard = ChessService.getNewChess()
 	if ($scope.aiOnBlack) $scope.aiBlack = ChessAI.createAI(true, Settings.getDifficultyBlack(), Settings.getPersonalityBlack())
 	if ($scope.aiOnWhite) $scope.aiWhite = ChessAI.createAI(false, Settings.getDifficultyWhite(), Settings.getPersonalityWhite())
 		
@@ -76,7 +74,7 @@ angular.module('ng-chess').controller('ChessController', ['$scope', '$timeout', 
 	
 	$scope.restart = function() {
 		$scope.gameOver = undefined
-		$scope.chessBoard = Chess.createBoard()
+		$scope.chessBoard = ChessService.getNewChess()
 		if ($scope.aiWhite) {
 			$scope.aiTurn()
 		}

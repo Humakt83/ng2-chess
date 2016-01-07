@@ -10,12 +10,14 @@ var sourcemaps = require('gulp-sourcemaps');
 var assign = require('lodash.assign');
 var browserSync = require('browser-sync');
 var uglify = require('gulp-uglify');
+var babelify = require('babelify');
 
 var DIST_DIR = './dist/'
 // add custom browserify options here
 var customOpts = {
   entries: ['./app/ngchess.js'],
   extensions: ['.js'],
+  transform: [babelify],
   paths: ['./node_modules','./app/js'],
   debug: true
 };
