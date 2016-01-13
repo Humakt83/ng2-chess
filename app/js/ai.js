@@ -70,10 +70,12 @@ angular.module('ng-chess').factory('ChessAI', [function() {
 		this.pickBestMove = function(chess) {
 			
 			var	topMoves = this.topMoves(chess)
-			if (this.depth > 1) {
+			chess.doNotCheckForCheck = true
+			if (this.depth > 1) {				
 				var aiOpponent = new AI(!this.black, this.depth - 1, this.evalueNBestMoves, this.personality)
 				_.each(topMoves, function(move) {
-					chess.makeMove(move)
+
+					chess.makeMove(move)					
 					if (chess.allowedMoves.length < 1) {
 						move.calculatedScore = aiOpponent.black ? 99999 : -99999
 					} else {
@@ -89,6 +91,7 @@ angular.module('ng-chess').factory('ChessAI', [function() {
 		this.playTurn = function(chess) {
 			chess.aiTurn = true
 			var move = this.pickBestMove(chess)
+			chess.doNotCheckForCheck = false
 			chess.aiTurn = false
 			if (!move) return
 			chess.makeMove(move)

@@ -38,7 +38,7 @@
   "dependencies": {
     "angular": "^1.4.3",
     "angular-route": "^1.4.3",
-    "jschessrulz": "^0.5.1",
+    "jschessrulz": "^0.7.1",
     "lodash": "^3.10.1",
     "underscore": "^1.8.3"
   },
