@@ -1,12 +1,9 @@
-# ng-chess
-AngularJS Chess
-
-![alt tag](https://raw.githubusercontent.com/Humakt83/Portal/master/img/ngchess.png)
+# ng2-chess
+Angular2 Chess
 
 Play against computer or human (hotseat only), or let computers play against each other.
 
 Customize AI by picking a personality, thinking depth and amount of moves to evaluate per depth level.
 
-http://ukkosnetti.fi/ngchess
+This is originally imported from ng-chess, which was made with angular 1.
 
-Tested with Google chrome.
