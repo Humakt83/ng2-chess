@@ -27,7 +27,7 @@ gulp.task('copy:libs', ['clean'], function() {
         'node_modules/es6-shim/es6-shim.min.js',
         'node_modules/systemjs/dist/system-polyfills.js',
 		'node_modules/lodash/lodash.js',
-		'node_modules/jschessrulz/index.js'
+		'node_modules/jschessrulz/jschessrulz.js'
     ])
         .pipe(gulp.dest('dist/lib'))
 });

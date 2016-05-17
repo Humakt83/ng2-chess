@@ -1,18 +1,30 @@
+
 <!DOCTYPE html>
 <html>
-  <head lang="en">
+    <head>
+    <title>Angular2 Chess</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Angular Chess">
+    <meta name="description" content="Angular 2 Chess">
     <meta name="author" content="Risto <<Humakt83>> Salama">
-    <title>Angular Chess</title>
-	<link rel="SHORTCUT ICON" href="ngchess.ico">
-    <link rel="stylesheet" href="style.css"/>
-  </head>
-  <body ng-app="ng-chess">
-    <div class="container">
-      <div ng-view></div>
-    </div>
-	<script src="bundle.js"></script>
-  </body>
+    <link rel="SHORTCUT ICON" href="ngchess.ico">
+    <link rel="stylesheet" href="style.css">
+    <script src="lib/es6-shim.min.js"></script>
+    <script src="lib/system-polyfills.js"></script>
+    <script src="lib/angular2-polyfills.min.js"></script>
+    <script src="lib/system.js"></script>
+    <script src="lib/system.src.js"></script>
+    <script src="lib/Rx.min.js"></script>
+    <script src="lib/angular2.min.js"></script>
+    <script src="lib/lodash.js"></script>
+    <script src="lib/jschessrulz.js"></script>
+    <script>
+          System.config({packages: {app: {format: 'register', defaultExtension: 'js'}}});
+          System.import('app/boot')
+                .then(null, console.error.bind(console));
+    </script>
+    </head>
+    <body>
+        <chess>Loading...</chess>
+    </body>
 </html>
