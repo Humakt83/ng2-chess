@@ -13,6 +13,7 @@
   },
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "node_modules/jschessrulz/node_modules"
   ]
 }

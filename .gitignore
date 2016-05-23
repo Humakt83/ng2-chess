@@ -75,3 +75,5 @@ $RECYCLE.BIN/
 *.lnk
 dist
 dist.zip
+
+typings
