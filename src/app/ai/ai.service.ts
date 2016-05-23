@@ -1,6 +1,4 @@
 import { Injectable } from 'angular2/core';
-import 'lodash';
-import { ChessPiece } from 'jschessrulz';
 import { AI } from './ai';
 
 @Injectable()

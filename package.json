@@ -4,7 +4,8 @@
   "description": "Angular chess",
   "main": "gulpfile.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "gulp serve",
+    "postinstall": "typings install"
   },
   "repository": {
     "type": "git",
@@ -25,6 +26,7 @@
     "browser-sync": "^2.12.5",
     "del": "^2.2.0",
     "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0",
     "gulp-sourcemaps": "^1.6.0",
     "gulp-typescript": "^2.13.0",
     "typescript": "^1.8.10"
