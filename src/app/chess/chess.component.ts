@@ -1,7 +1,7 @@
 import { Component, OnInit } from 'angular2/core';
 import { AIService } from '../ai/ai.service';
 import { AI } from '../ai/ai';
-import { Chess, Piece, Position } from 'jschessrulz';
+import {Chess, ChessPiece, Position } from '../rules/index';
 
 @Component({
   selector: 'chess',
@@ -10,7 +10,7 @@ import { Chess, Piece, Position } from 'jschessrulz';
 export class ChessComponent implements OnInit {
     
     isGameOver: boolean;
-    piece: Piece;
+    piece = ChessPiece;
     aiOnBlack: boolean = true;
     aiOnWhite: boolean = false;
     chessBoard: Chess;
@@ -24,7 +24,7 @@ export class ChessComponent implements OnInit {
     constructor(public aiService: AIService) {}
     
     ngOnInit() {
-        this.piece = Piece;
+		console.log(Chess);
         this.chessBoard = new Chess();
         this.blackPieces = this.chessBoard.getBlackPieces();
         this.whitePieces = this.chessBoard.getWhitePieces();
@@ -56,7 +56,7 @@ export class ChessComponent implements OnInit {
 			else this.aiBlack.playTurn(this.chessBoard);
 			this.checkState();
 			return !this.gameOver && ((this.chessBoard.turnOfWhite && this.aiWhite) || (!this.chessBoard.turnOfWhite && this.aiBlack));
-		}, 300).then(function(continueGame) {
+		}, 300).then((continueGame: boolean) => {
 			if (continueGame) {
 				this.aiTurn()
 			} else {

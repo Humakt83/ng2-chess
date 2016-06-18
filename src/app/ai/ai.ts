@@ -1,6 +1,6 @@
 import { Chess } from 'jschessrulz';
-import 'lodash';
 import { AIService } from './ai.service';
+//import _ from 'lodash';
 
 export class AI {
     

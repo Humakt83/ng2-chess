@@ -12,7 +12,7 @@ gulp.task('clean', function () {
 
 gulp.task('compile', ['clean'], function () {
     return gulp
-        .src('src/**/*.ts')
+        .src(['src/**/*.ts'])
         .pipe(typescript(tscConfig.compilerOptions))
         .pipe(gulp.dest('dist'));
 });
@@ -26,8 +26,7 @@ gulp.task('copy:libs', ['clean'], function() {
         'node_modules/angular2/bundles/angular2.min.js',
         'node_modules/es6-shim/es6-shim.min.js',
         'node_modules/systemjs/dist/system-polyfills.js',
-		'node_modules/lodash/lodash.js',
-		'node_modules/jschessrulz/jschessrulz.js'
+		'node_modules/lodash/lodash.js'
     ])
         .pipe(gulp.dest('dist/lib'))
 });
