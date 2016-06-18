@@ -5,7 +5,7 @@ import {Chess, ChessPiece, Position } from '../rules/index';
 
 @Component({
   selector: 'chess',
-  templateUrl: 'app/main/main.html'
+  templateUrl: 'app/chess/chess.html'
 })
 export class ChessComponent implements OnInit {
     

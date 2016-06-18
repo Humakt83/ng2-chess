@@ -2,10 +2,10 @@
 	<table class="chess" (class.chess-over)="gameOver">
 		<tr *ngFor="let row of chessBoard.board; let rowIndex = index">
 			<td *ngFor="let slot of row; let slotIndex = index" ng-click="selectPiece(slotIndex, rowIndex)"
-				(class.selectable)="!gameOver && !doNotHighlightSelected && chessBoard.isMovable(slotIndex, rowIndex)"
-                (class.bg-white)="(rowIndex + slotIndex) % 2 !== 0"
-                (class.bg-black)="(rowIndex + slotIndex) % 2 === 0}">
-					<img class="piece" (src)="piece.getCssName(chessBoard.board[rowIndex][slotIndex]) + '.png'}}"/>
+				[class.selectable]="!gameOver && !doNotHighlightSelected && chessBoard.isMovable(slotIndex, rowIndex)"
+                [class.bg-white]="(rowIndex + slotIndex) % 2 !== 0"
+                [class.bg-black]="(rowIndex + slotIndex) % 2 === 0">
+					<img class="piece" [src]="'img/' + piece.getCssName(chessBoard.board[rowIndex][slotIndex]) + '.png'"/>
 			</td>
 		</tr>
 	</table>
@@ -14,8 +14,8 @@
 		<div class="end-inner">
 			<p>{{chessOverText}}</p>
 			<div>
-				<img class="restart" src="start.png" (click)="restart()"/>
-				<img class="settings-image" src="settings.png" (click)="toSettings()"/>
+				<img class="restart" src="img/start.png" (click)="restart()"/>
+				<img class="settings-image" src="img/settings.png" (click)="toSettings()"/>
 			</div>
 		</div>
 	</div>
