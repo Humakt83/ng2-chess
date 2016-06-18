@@ -9,7 +9,7 @@ import {Chess, ChessPiece, Position } from '../rules/index';
 })
 export class ChessComponent implements OnInit {
     
-    isGameOver: boolean;
+    isGameOver: boolean = false;
     piece = ChessPiece;
     aiOnBlack: boolean = true;
     aiOnWhite: boolean = false;
@@ -21,10 +21,9 @@ export class ChessComponent implements OnInit {
     aiWhite : AI;
     chessOverText: string = '';
     
-    constructor(public aiService: AIService) {}
+    constructor(private aiService: AIService) {}
     
     ngOnInit() {
-		console.log(Chess);
         this.chessBoard = new Chess();
         this.blackPieces = this.chessBoard.getBlackPieces();
         this.whitePieces = this.chessBoard.getWhitePieces();
@@ -51,18 +50,16 @@ export class ChessComponent implements OnInit {
 		
 	aiTurn() {
 		this.doNotHighlightSelected = true
-		setTimeout(function() {
+		setTimeout(() => {
 			if (this.chessBoard.turnOfWhite) this.aiWhite.playTurn(this.chessBoard);
 			else this.aiBlack.playTurn(this.chessBoard);
 			this.checkState();
-			return !this.gameOver && ((this.chessBoard.turnOfWhite && this.aiWhite) || (!this.chessBoard.turnOfWhite && this.aiBlack));
-		}, 300).then((continueGame: boolean) => {
-			if (continueGame) {
-				this.aiTurn()
+			if(!this.gameOver && ((this.chessBoard.turnOfWhite && this.aiWhite) || (!this.chessBoard.turnOfWhite && this.aiBlack)) {
+				this.aiTurn();
 			} else {
 				this.doNotHighlightSelected = false
 			}
-		})
+		}, 300);
 	}
 	
 	checkState() {
@@ -93,7 +90,7 @@ export class ChessComponent implements OnInit {
 
 	
 	restart() {
-		this.gameOver = undefined
+		this.isGameOver = false;
 		this.chessBoard = new Chess();
 		if (this.aiWhite) {
 			this.aiTurn()

@@ -7,6 +7,7 @@ export class Move {
     boardAfterMove: number[][];
     castlingState: any;
     pawnDoubleForward: boolean = false;
+    calculatedScore: number;
 
     constructor(public piece: number, public originalPosition: Position, public position: Position, private chess: Chess, public effect?: any) {
         this.effect = effect ? effect : () => {};

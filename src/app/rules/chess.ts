@@ -107,12 +107,12 @@ export class Chess {
 			for (var x = 0; x <= xMax; x++) {
 				var piece = this.board[y][x]
 				if ((piece > 0 && this.turnOfWhite) || (piece < 0 && !this.turnOfWhite)) {
-					this.allowedMoves.concat(ChessPiece.getMoves(piece, new Position(x, y), this))
+					this.allowedMoves = this.allowedMoves.concat(ChessPiece.getMoves(piece, new Position(x, y), this))
 				}
 			}
 		}		
 		this.selected = undefined
-		this.allowedMoves = _.compact(_.flatten(this.allowedMoves))		
+		this.allowedMoves = _.compact(this.allowedMoves)
 	}
 		
 	boardAfterMove(from: Position, to: Position) : number[][] {
@@ -152,7 +152,7 @@ export class Chess {
 	}
 		
 	canSetSelected(x: number, y: number) {
-		var movable = _.find(this.allowedMoves, function(move) {
+		var movable = _.find(this.allowedMoves, (move: Move) => {
 			return move.originalPosition.x === x && move.originalPosition.y === y
 		})
 		return movable && ((this.turnOfWhite && this.board[y][x] > 0) || (!this.turnOfWhite && this.board[y][x] < 0))
