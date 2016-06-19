@@ -8,7 +8,7 @@ import { Move } from './move';
 const xMin = 0, yMin = 0, xMax = 7, yMax = 7
 
 function initBoard() {
-	function determinePiece(x, y) {
+	function determinePiece(x: number, y: number) {
 		if (y === 1 || y === 6) return ChessPiece.createPawn(y === 6)
 		if ((x === 0 || x === 7) && (y === 7 || y === 0)) return ChessPiece.createRook(y === 7)
 		if ((x === 1 || x === 6) && (y === 7 || y === 0)) return ChessPiece.createKnight(y === 7)
@@ -56,7 +56,7 @@ export class Chess {
 	}
 		
 	movePiece(from: Position, to: Position) {
-		var move = _.find(this.allowedMoves, function(move) {
+		var move = _.find(this.allowedMoves, (move: Move) => {
 			return move.position.x === to.x && move.position.y === to.y
 				&& move.originalPosition.x === from.x && move.originalPosition.y === from.y
 		})
@@ -133,7 +133,7 @@ export class Chess {
 	}
 		
 	getPieces(whitePieces: boolean): number[] {
-		return _.chain(this.board).flatten().flatten().filter(function(slot) {
+		return _.chain(this.board).flatten().flatten().filter(function(slot: number) {
 				return (slot > 0 && whitePieces) || (slot < 0 && !whitePieces)
 			}).sort().reverse().value()
 	}
@@ -141,12 +141,12 @@ export class Chess {
 	isMovable(x: number, y: number) {
 		if (this.selected) {
 			var sel = this.selected
-			return _.find(this.allowedMoves, function(move) {
+			return _.find(this.allowedMoves, (move: Move) => {
 				return move.originalPosition.x === sel.x && move.originalPosition.y === sel.y
 					&& move.position.x === x && move.position.y === y
 			})
 		}
-		return _.find(this.allowedMoves, function(move) {
+		return _.find(this.allowedMoves, (move: Move) => {
 			return move.originalPosition.x === x && move.originalPosition.y === y
 		})
 	}

@@ -1,32 +1,29 @@
 
-//import _ from 'lodash';
 import { Position } from './position';
 import { Move } from './move';
 import { Chess } from './chess';
 
-const cssNames = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king']
+const cssNames = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king'];
 
 var filterOutOfBoardMoves = function(moves: any[], chess: Chess) {
-	return _.compact(_.filter(moves, function(move) {
-		return chess.isPositionInsideBoard(move.position ? move.position : move)
-	}))
+	return _.compact(_.filter(moves, (move: any) => chess.isPositionInsideBoard(move.position ? move.position : move)));
 }
 
-var filterMovesThatCollideWithOwnPiece = function(moves: Move[], whitePiece: number, chess: Chess) {
-	return _.compact(_.filter(moves, function(move) {
-		var slot = chess.getSlot(move.position)
-		return !((whitePiece && slot > 0) || (!whitePiece && slot < 0))
-	}))
+var filterMovesThatCollideWithOwnPiece = function(moves: Move[], whitePiece: boolean, chess: Chess) {
+	return _.compact(_.filter(moves, (move: Move) => {
+		let slot = chess.getSlot(move.position);
+		return !((whitePiece && slot > 0) || (!whitePiece && slot < 0));
+	}));
 }
 
 var filterMovesThatCauseMate = function(moves: Move[], whitePiece: boolean, chess: Chess) {
 	if (chess.aiTurn) return moves
 	var pieceToLookFor = whitePiece ? 6 : -6
-	return _.compact(_.filter(moves, function(move) {
+	return _.compact(_.filter(moves, (move: Move) => {
 		if (chess.doNotCheckForCheck) return true
 		chess.doNotCheckForCheck = true
 		chess.makeMove(move, true)
-		var noKingRemains = _.find(_.flatten(chess.getFutureMoves()), function(futureMove) {
+		var noKingRemains = _.find(_.flatten(chess.getFutureMoves()), (futureMove: Move) => {
 			return !_.chain(futureMove.boardAfterMove).flatten().includes(pieceToLookFor).value()
 		})
 		chess.undoMove(true)

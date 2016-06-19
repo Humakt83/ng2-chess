@@ -11,8 +11,8 @@ export class ChessComponent implements OnInit {
     
     isGameOver: boolean = false;
     piece = ChessPiece;
-    aiOnBlack: boolean = true;
-    aiOnWhite: boolean = false;
+    aiOnBlack: boolean = false;
+    aiOnWhite: boolean = true;
     chessBoard: Chess;
     doNotHighlightSelected: boolean = false;
     blackPieces: number[] = [];
@@ -27,8 +27,8 @@ export class ChessComponent implements OnInit {
         this.chessBoard = new Chess();
         this.blackPieces = this.chessBoard.getBlackPieces();
         this.whitePieces = this.chessBoard.getWhitePieces();
-        if (this.aiOnBlack) this.aiBlack = this.aiService.createAI(true, 3, null);
-	    if (this.aiOnWhite) this.aiWhite = this.aiService.createAI(false, 3, null);
+        if (this.aiOnBlack) this.aiBlack = this.aiService.createAI(true, {depth: 3, width: 30 }, null);
+	    if (this.aiOnWhite) this.aiWhite = this.aiService.createAI(false, {depth: 3, width: 30 }, null);
        	if (this.aiWhite) {
 		    this.aiTurn();
 	    }
@@ -54,7 +54,7 @@ export class ChessComponent implements OnInit {
 			if (this.chessBoard.turnOfWhite) this.aiWhite.playTurn(this.chessBoard);
 			else this.aiBlack.playTurn(this.chessBoard);
 			this.checkState();
-			if(!this.gameOver && ((this.chessBoard.turnOfWhite && this.aiWhite) || (!this.chessBoard.turnOfWhite && this.aiBlack)) {
+			if(!this.gameOver && ((this.chessBoard.turnOfWhite && this.aiWhite) || (!this.chessBoard.turnOfWhite && this.aiBlack))) {
 				this.aiTurn();
 			} else {
 				this.doNotHighlightSelected = false
