@@ -4,6 +4,7 @@
 import { ChessPiece } from './pieces'
 import { Position } from './position'
 import { Move } from './move';
+import * as _ from 'lodash';
 
 const xMin = 0, yMin = 0, xMax = 7, yMax = 7
 

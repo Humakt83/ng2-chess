@@ -19,9 +19,18 @@
     <script src="lib/lodash.js"></script>
     <script src="lib/jschessrulz.js"></script>
     <script>
-          System.config({packages: {app: {format: 'register', defaultExtension: 'js'}}});
-          System.import('app/boot')
-                .then(null, console.error.bind(console));
+        System.config({
+            packages: {
+                app: {
+                    format: 'register', defaultExtension: 'js'
+                }                    
+            },
+            map: {
+                lodash: 'lib/lodash.js'
+            }
+        });
+        System.import('app/boot')
+        .then(null, console.error.bind(console));
     </script>
     </head>
     <body>

@@ -1,6 +1,6 @@
 import { Chess, Move } from '../rules/index';
 import { AIService } from './ai.service';
-//import _ from 'lodash';
+import * as _ from 'lodash';
 
 export class AI {
     
