@@ -19,20 +19,9 @@ export class AIService {
 	
 	private personalities = { personality_pawned: this.pawned, personality_horse: this.horse, personality_missionary: this.missionary, personality_rookie: this.rookie, 
 		personality_widowmaker: this.widowmaker, personality_officer: this.officer};
-	
-	getValueForPiece(piece: number, x: number, y: number, personality: any) {
-		function getValueOfCoordX(coord: number): number {
-			if (coord === 3 || coord === 4) return 6;
-			if (coord === 2 || coord === 5) return 3;
-			if (coord === 1 || coord === 6) return 1;
-			return 0;
-		}
-		function getValueOfCoordY(coord: number): number {
-			if ( piece === -1 ) return coord;
-			if ( piece === 1) return 7 - coord;
-			return getValueOfCoordX(coord);
-		}
-		return personality[Math.abs(piece) - 1] + getValueOfCoordX(x) + getValueOfCoordY(y);
+
+	getValueForPiece(piece: number, x: number, y: number, personality: any) {		
+		return personality[Math.abs(piece) - 1] + this.getValueOfCoordX(x) + this.getValueOfCoordY(piece, y);
 	}
 	
 	evaluateBoard(board: number[][], personality: any): number {
@@ -60,6 +49,19 @@ export class AIService {
     
     getPersonalities(): any {
 	    return this.personalities;
+	}
+
+	private getValueOfCoordX(coord: number): number {
+			if (coord === 3 || coord === 4) return 6;
+			if (coord === 2 || coord === 5) return 3;
+			if (coord === 1 || coord === 6) return 1;
+			return 0;
+	}
+
+	private getValueOfCoordY(piece: number, coord: number): number {
+			if ( piece === -1 ) return coord;
+			if ( piece === 1) return 7 - coord;
+			return this.getValueOfCoordX(coord);
 	}
    
 }

@@ -1,0 +1,5 @@
+<div class="pieces">
+    <div class="piece" *ngFor="let piece of pieces">
+        <img class="piece" [src]="'img/' + chessPiece.getCssName(piece) + '.png'"/>
+    </div>
+</div>

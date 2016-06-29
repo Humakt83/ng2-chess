@@ -174,3 +174,27 @@ img {
 	transition: 1s filter linear;
 	transition: 1s -webkit-filter linear;
 }
+
+.pieces {
+	border: 3px solid rgb(168, 116,74);
+	border-radius: 3px;
+	display: inline-block;
+	padding: 5px;
+}
+
+.pieces > .piece > img {
+	width: 30px;
+	height: 30px;
+}
+
+.pieces-left {
+	position: absolute;
+	top: 50px;
+	left: 50px;
+}
+
+.pieces-right {
+	position: absolute;
+	top: 50px;
+	right: 50px;
+}

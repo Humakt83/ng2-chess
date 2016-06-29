@@ -2,7 +2,7 @@
 import { Position } from './position';
 import { Move } from './move';
 import { Chess } from './chess';
-import * as _ from 'lodash';
+import _ from 'lodash';
 
 const cssNames = ['pawn', 'knight', 'bishop', 'rook', 'queen', 'king'];
 

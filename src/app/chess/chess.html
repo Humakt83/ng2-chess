@@ -1,4 +1,7 @@
 <div class="container">
+	<div class="pieces-left">
+		<pieces [pieces]="whitePieces"></pieces>
+	</div>
 	<table class="chess" (class.chess-over)="gameOver">
 		<tr *ngFor="let row of chessBoard.board; let rowIndex = index">
 			<td *ngFor="let slot of row; let slotIndex = index" (click)="selectPiece(slotIndex, rowIndex)"
@@ -9,6 +12,9 @@
 			</td>
 		</tr>
 	</table>
+	<div class="pieces-right">
+		<pieces [pieces]="blackPieces"></pieces>
+	</div>
 		
 	<div class="end" *ngIf="isGameOver">
 		<div class="end-inner">

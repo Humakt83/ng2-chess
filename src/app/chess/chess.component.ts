@@ -1,18 +1,20 @@
 import { Component, OnInit } from 'angular2/core';
 import { AIService } from '../ai/ai.service';
 import { AI } from '../ai/ai';
-import {Chess, ChessPiece, Position } from '../rules/index';
+import { Chess, ChessPiece, Position } from '../rules/index';
+import { PiecesComponent } from './pieces.component';
 
 @Component({
   selector: 'chess',
-  templateUrl: 'app/chess/chess.html'
+  templateUrl: 'app/chess/chess.html',
+  directives: [PiecesComponent]
 })
 export class ChessComponent implements OnInit {
     
     isGameOver: boolean = false;
     piece = ChessPiece;
     aiOnBlack: boolean = false;
-    aiOnWhite: boolean = true;
+    aiOnWhite: boolean = false;
     chessBoard: Chess;
     doNotHighlightSelected: boolean = false;
     blackPieces: number[] = [];
